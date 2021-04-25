@@ -1,0 +1,8 @@
+.asteroid-cards {
+    &__item {
+        margin-bottom: 19px;
+        @media only screen and (min-width: #{$desktop-width}) {
+            margin-bottom: 16px;
+        }
+    }
+}

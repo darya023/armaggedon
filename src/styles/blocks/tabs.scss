@@ -1,0 +1,27 @@
+.tabs {
+    &__item {
+        padding: 16px 0;
+        display: inline-block;
+        position: relative;
+        letter-spacing: 0.015em;
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 17px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+        }
+        &_active {
+            font-weight: bold;
+            letter-spacing: 0.035em;
+            &:before {
+                left: 50%;
+                width: 0;
+            }
+        }
+        &:not(:first-child) {
+            margin-left: 26px;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+.filters {
+    padding: 5px 0 13px;
+    @media only screen and (min-width: #{$desktop-width}) {
+        padding: 20px 0;
+    }
+    
+    &__radio {
+        appearance: none;
+        outline: 0;
+        &:checked + .filters__radio-label {
+            font-weight: bold;
+            &:before {
+                left: 50%;
+                width: 0;
+            }
+        }
+        &:disabled + .filters__radio-label {
+            opacity: 0.6;
+        }
+    }
+    &__radio-label {
+        cursor: pointer;
+        margin-left: 6px;
+        position: relative;
+        padding: 5px 0;
+        display: inline-block;
+        &:before {
+            transition: all 0.3s;
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+        }
+        &:not(:last-child)::after {
+            content: ',';
+            font-weight: normal;
+        }
+    }
+    &__right {
+        margin-top: 10px;
+        line-height: 16px;
+        margin-left: -6px;
+        @media only screen and (min-width: #{$desktop-width}) {
+            margin-top: 0;
+            line-height: inherit;
+            text-align: right;
+        }
+    }
+    &__radio-text {
+        margin-left: 6px;
+    }
+}

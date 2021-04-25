@@ -1,0 +1,118 @@
+.asteroid-card {
+    background: linear-gradient(90deg, #CFF37D 0%, #7DE88C 100%) no-repeat;
+    background-size: 100% 144px;
+    border: 1px solid $main-color;
+    border-radius: 10px;
+    padding: 18px 16px 21px 16px;
+    overflow: hidden;
+    line-height: 24px;
+    @media only screen and (min-width: #{$desktop-width}) {
+        padding: 18px 22px $asteroid-card-indent-bottom 16px;
+        background-size: 100% 100%;
+    }
+    &_theme_dangerous {
+        background-image: linear-gradient(90deg, #FFB199 0%, #FF0844 100%);
+    }
+    &_theme_fullscreen {
+        border: none;
+        border-radius: 0;
+        background-size: 100% 144px;
+    }
+    &__title {
+        position: relative;
+        display: inline-block;
+        font-size: 24px;
+        line-height: 32px;
+        margin: 5px 0 13px;
+        @media only screen and (min-width: #{$desktop-width}) {
+            margin: 5px 0 8px;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid;
+        }
+        transition: all .3s;
+        &:hover {
+            color: $button-color;
+        }
+    }
+    &__description {
+        margin-bottom: 7px;
+        position: relative;
+        z-index: 2;
+        @media only screen and (min-width: #{$desktop-width}) {
+            margin-bottom: 0;
+            flex-basis: 319px;
+        }
+    }
+    &__estimate {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        @media only screen and (min-width: #{$desktop-width}) {
+            flex-basis: 191px;
+        }
+    }
+    &__status {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    &__images {
+        position: relative;
+        padding-top: 83px;
+        z-index: 0;
+        @media only screen and (min-width: #{$desktop-width}) {
+            align-self: stretch;
+            padding-top: 0;
+            flex-basis: 260px;
+        }
+        .asteroid-card_theme_fullscreen & {
+            @media only screen and (min-width: #{$desktop-width}) {
+                padding-top: 83px;
+                flex-basis: 100%;
+            }
+        }
+    }
+    &__dino {
+        position: absolute;
+        bottom: -44px;
+        left: 86%;
+        line-height: 0;
+        transform: scale(-1, 1);
+        @media only screen and (min-width: #{$desktop-width}) {
+            transform: scale(1, 1);
+            bottom: -$asteroid-card-indent-bottom;
+            left: 16px;
+        }
+        .asteroid-card_theme_fullscreen & {
+            @media only screen and (min-width: #{$desktop-width}) {
+                bottom: -44px;
+                left: 86%;
+                transform: scale(-1, 1);
+            }
+        }
+        & svg {
+            width: 35px;
+            @media only screen and (min-width: #{$desktop-width}) {
+                width: 56px;
+            }
+        }
+    }
+    &__asteroid {
+        position: absolute;
+        bottom: 27%;
+        left: 18%;
+        transform: translate(-43%, 4%);
+        line-height: 0;
+        @media only screen and (min-width: #{$desktop-width}) {
+            bottom: 48%;
+            left: 58%;
+            transform: translate(-43%, 4%);
+            line-height: 0;
+        }
+    }
+}

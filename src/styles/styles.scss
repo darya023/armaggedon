@@ -1,0 +1,26 @@
+@import "../../node_modules/normalize-scss/sass/normalize/import-now";
+
+@import "constants";
+
+//глобальные стили
+@import "common/root";
+@import "common/visually-hidden";
+@import "common/flex-wrapper";
+@import "common/container";
+@import "common/fonts";
+@import "common/base";
+
+//блоки
+@import "blocks/dual-ring";
+@import "blocks/title";
+@import "blocks/link";
+@import "blocks/header";
+@import "blocks/tabs";
+@import "blocks/footer";
+@import "blocks/button";
+@import "blocks/filters";
+@import "blocks/checkbox";
+@import "blocks/asteroid-cards";
+@import "blocks/asteroid-card";
+@import "blocks/asteroid-description";
+@import "blocks/toast";

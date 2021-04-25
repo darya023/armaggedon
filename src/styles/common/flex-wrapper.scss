@@ -1,0 +1,27 @@
+.flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 (-$flex-wrapper-indent);
+    flex-direction: column;
+    @media only screen and (min-width: #{$desktop-width}) {
+        align-items: center;
+        flex-direction: row;
+    }
+    &_align_top {
+        align-items: flex-start;
+    }
+    .asteroid-card_theme_fullscreen & {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    &__item {
+        padding: 0 $flex-wrapper-indent;
+        flex-basis: 100%;
+        @media only screen and (min-width: #{$desktop-width}) {
+            flex-basis: 50%;
+        }
+        .asteroid-card_theme_fullscreen & {
+            flex-basis: 100%;
+        }
+    }
+}
