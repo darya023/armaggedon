@@ -4,7 +4,7 @@ import Header from "../header/header";
 import Footer from "../footer/footer";
 import AsteroidCardFullscreen from "../asteroid-card/asteroid-card-fullscreen";
 import {useDispatch, useSelector} from "react-redux";
-import {needShowErrorTextInsteadAsteroidData, needShowSpinnerInsteadAsteroidScreen, getCurrentAsteroid, needShowAsteroidCard} from "../../store/selectors";
+import {needShowErrorTextInsteadAsteroidData, needShowSpinnerInsteadAsteroidScreen, getCurrentAsteroid, needShowAsteroidCardInAsteroidScreen} from "../../store/selectors";
 import {fetchAsteroid} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 import {changeCurrentAsteroidId} from "../../store/action-creator";
@@ -13,7 +13,7 @@ import {ERROR_TEXT} from "../../const";
 const AsteroidScreen = ({currentAsteroidId}) => {
   const isSpinnerShown = useSelector(needShowSpinnerInsteadAsteroidScreen);
   const isErrorTextShown = useSelector(needShowErrorTextInsteadAsteroidData);
-  const isAsteroidCardShown = useSelector(needShowAsteroidCard);
+  const isAsteroidCardShown = useSelector(needShowAsteroidCardInAsteroidScreen);
   const asteroid = useSelector(getCurrentAsteroid);
 
   const dispatch = useDispatch();

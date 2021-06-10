@@ -1,5 +1,6 @@
 import {batch} from "react-redux";
 import {LoadingStatus} from "../const";
+import {adaptDataToClient} from "../utils/adapt-data-to-client";
 import {changeLoadingDataStatus, setAsteroids, changeNextDate, changeLoadingAsteroidDataStatus, changeCurrentAsteroid} from "./action-creator";
 
 export const fetchAsteroids = () => (dispatch, getState, api) => {
@@ -7,12 +8,22 @@ export const fetchAsteroids = () => (dispatch, getState, api) => {
   dispatch(changeLoadingDataStatus(LoadingStatus.FETCHING));
   return api.get(`/feed?start_date=${date}&end_date=${date}&api_key=DEMO_KEY`)
     .then(({data}) => {
-      dispatch(setAsteroids(data.near_earth_objects[date]));
-      return data;
+      const newData = data.near_earth_objects[date];
+
+      const result = {
+        data: newData.map(adaptDataToClient),
+        nextDate: data.links.next
+      };
+
+      return result;
     })
-    .then((data) => {
+    .then(({data, nextDate}) => {
+      dispatch(setAsteroids(data));
+      return nextDate;
+    })
+    .then((nextDate) => {
       batch(() => {
-        dispatch(changeNextDate(data.links.next));
+        dispatch(changeNextDate(nextDate));
         dispatch(changeLoadingDataStatus(LoadingStatus.SUCCESS));
       });
     })
@@ -23,7 +34,8 @@ export const fetchAsteroids = () => (dispatch, getState, api) => {
 export const fetchAsteroid = () => (dispatch, getState, api) => {
   dispatch(changeLoadingAsteroidDataStatus(LoadingStatus.FETCHING));
   return api.get(`/neo/${getState().currentAsteroidId}?api_key=DEMO_KEY`)
-    .then(({data}) => {
+    .then(({data}) => adaptDataToClient(data))
+    .then((data) => {
       batch(() => {
         dispatch(changeCurrentAsteroid(data));
         dispatch(changeLoadingAsteroidDataStatus(LoadingStatus.SUCCESS));

@@ -13,12 +13,6 @@ const ButtonText = {
   TERMINATE: `На уничтожение`,
   NOT_TERMINATE: `Не уничтожать`,
 };
-const Unit = {
-  KILOMETERS: `км`,
-  METERS: `м`,
-  LUNAR: `лун`,
-  KILOMETERS_PER_SECOND: `км/с`
-};
 const RATIO = 0.5;
 const AsteroidInfoKey = {
   DATE: `Дата`,
@@ -33,19 +27,14 @@ const getDistance = (approachData, measure) => {
   let distance;
   switch (measure) {
     case Measure.KILOMETERS:
-      distance = `${Number(approachData.miss_distance.kilometers).toFixed(0)} ${Unit.KILOMETERS}`;
+      distance = `${approachData.distanceInKilometers.value.toFixed(0)} ${approachData.distanceInKilometers.unit}`;
       break;
     case Measure.LUNAR:
-      distance = `${Number(approachData.miss_distance.lunar).toFixed(0)} ${Unit.LUNAR}`;
+      distance = `${approachData.distanceInLunar.value.toFixed(0)} ${approachData.distanceInLunar.unit}`;
       break;
   }
 
   return distance;
-};
-const getVelocity = (approachData) => {
-  let velocity = `${Number(approachData.relative_velocity.kilometers_per_second).toFixed(1)} ${Unit.KILOMETERS_PER_SECOND}`;
-
-  return velocity;
 };
 
 const getAsteroidInfo = (approachData, distanceMeasure, diameter, detailed) => {
@@ -53,7 +42,7 @@ const getAsteroidInfo = (approachData, distanceMeasure, diameter, detailed) => {
     return [
       {
         key: AsteroidInfoKey.DATE,
-        value: humanizeDate(approachData.close_approach_date_full, `D MMMM YYYY`),
+        value: humanizeDate(approachData.date, `D MMMM YYYY`),
       },
       {
         key: AsteroidInfoKey.DISTANCE,
@@ -61,7 +50,7 @@ const getAsteroidInfo = (approachData, distanceMeasure, diameter, detailed) => {
       },
       {
         key: AsteroidInfoKey.DIAMETER,
-        value: `${diameter} ${Unit.METERS}`,
+        value: `${diameter.value.toFixed(0)} ${diameter.unit}`,
       }
     ];
   }
@@ -69,11 +58,11 @@ const getAsteroidInfo = (approachData, distanceMeasure, diameter, detailed) => {
   return [
     {
       key: AsteroidInfoKey.DATE,
-      value: humanizeDate(approachData.close_approach_date_full, `D MMMM YYYY`),
+      value: humanizeDate(approachData.date, `D MMMM YYYY`),
     },
     {
       key: AsteroidInfoKey.TIME,
-      value: humanizeDate(approachData.close_approach_date_full, `HH:mm`),
+      value: humanizeDate(approachData.date, `HH:mm`),
     },
     {
       key: AsteroidInfoKey.DISTANCE,
@@ -81,15 +70,15 @@ const getAsteroidInfo = (approachData, distanceMeasure, diameter, detailed) => {
     },
     {
       key: AsteroidInfoKey.DIAMETER,
-      value: `${diameter} ${Unit.METERS}`,
+      value: `${diameter.value.toFixed(0)} ${diameter.unit}`,
     },
     {
       key: AsteroidInfoKey.VELOCITY,
-      value: getVelocity(approachData),
+      value: `${approachData.velocity.value.toFixed(1)} ${approachData.velocity.unit}`,
     },
     {
       key: AsteroidInfoKey.ORBITE,
-      value: `${approachData.orbiting_body}`,
+      value: `${approachData.orbite}`,
     }
   ];
 };
@@ -101,12 +90,12 @@ const AsteroidCard = ({asteroid, isFullscreenMode}) => {
 
   const dispatch = useDispatch();
 
-  const diameter = asteroid.estimated_diameter.meters.estimated_diameter_max.toFixed(0);
+  const diameter = asteroid.diameter.value;
   const imageSize = (diameter * RATIO).toFixed(0);
-  const isDangerous = asteroid.is_potentially_hazardous_asteroid;
+  const isDangerous = asteroid.isDangerous;
   const asteroidInfo = [];
-  asteroid.close_approach_data.map((data) => {
-    asteroidInfo.push(getAsteroidInfo(data, distanceMeasure, diameter, isFullscreenMode));
+  asteroid.approachData.map((data) => {
+    asteroidInfo.push(getAsteroidInfo(data, distanceMeasure, asteroid.diameter, isFullscreenMode));
     if (isFullscreenMode) {
       return;
     }

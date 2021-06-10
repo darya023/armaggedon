@@ -1,13 +1,19 @@
 @import "../../node_modules/normalize-scss/sass/normalize/import-now";
 
 @import "constants";
-
+@font-face {
+    font-family: 'Helvetica';
+    src: url("../fonts/HelveticaRegular.eot");
+    src: url("../fonts/HelveticaRegular.eot?#iefix") format('embedded-opentype'), url("../fonts/HelveticaRegular.woff2") format('woff2'), url("../fonts/HelveticaRegular.woff") format('woff'), url("../fonts/HelveticaRegular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 //глобальные стили
 @import "common/root";
 @import "common/visually-hidden";
 @import "common/flex-wrapper";
 @import "common/container";
-@import "common/fonts";
+// @import "common/fonts";
 @import "common/base";
 
 //блоки
